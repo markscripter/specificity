@@ -1,3 +1,11 @@
-import fs from 'fs'
+var fs = require('fs')
 
-export const ReadFile = filepath => fs.readFile(filepath, 'utf8')
+module.exports = function readFile (filepath) {
+  return {
+    filename: filepath,
+    content: fs.readFileSync(filepath, 'utf8', function (err, data) {
+      if (err) console.log(err)
+      return data
+    })
+  }
+}

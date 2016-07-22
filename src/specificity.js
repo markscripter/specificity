@@ -1,5 +1,7 @@
-import cssStats from 'cssstats'
-import { ReadFile } from './util/read-file'
+var path = require('path')
+var cssStats = require('cssstats')
+var readFile = require('./util/read-file')
+var writeFile = require('./util/write-file')
 
 /**
  * specificity
@@ -8,9 +10,19 @@ import { ReadFile } from './util/read-file'
  * @param Options (object) - An object of different settings for the file(s)
  * @returns Stats (object) - An object of the stats found from the file(s)
  */
-export const specificity = (FileArray = [], Options = {}) => {
+module.exports = function specificity (FileArray, Options) {
+  FileArray = FileArray || []
+  Options = Options || {}
+
   FileArray
-    .map(file => ReadFile(file))
-    .map(cssString => cssStats(cssString))
-    .map(output => console.log(output))
+    .map(file => readFile(file))
+    .map(fileObject => {
+      return {
+        filename: fileObject.filename,
+        cssStatsObject: cssStats(fileObject.content)
+      }
+    })
+    .map(cssInfoObject => {
+      writeFile(path.parse(cssInfoObject.filename).name + '.json', cssInfoObject.cssStatsObject)
+    })
 }

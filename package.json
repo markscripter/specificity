@@ -2,11 +2,9 @@
   "name": "specificity",
   "version": "0.0.0",
   "description": "A css specificity project to examine and document css specificity and related items.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "tests": "node dist/specificity.js",
-    "build": "rm -fr dist && webpack",
-    "start": "webpack && node dist/specificity.js"
+    "test": "node ."
   },
   "repository": {
     "type": "git",
@@ -26,7 +24,8 @@
     "babel-register": "^6.9.0",
     "fs": "0.0.2",
     "json-loader": "^0.5.4",
-    "standard": "^7.1.2"
+    "standard": "^7.1.2",
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "cssstats": "^3.0.0-beta.1"
